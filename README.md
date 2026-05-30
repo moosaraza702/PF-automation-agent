@@ -13,7 +13,7 @@ Gmail (unread PF emails)
  Gmail API client          ← fetches email body + PDF/DOCX attachments
         │
         ▼
- Extraction Agent (Claude) ← extracts Employee Index, Amount, Reason
+ Extraction Agent (Ollama/LLaMA 3.2) ← extracts Employee Index, Amount, Reason
         │
         ▼
  HR Lookup                 ← auto-fills Name, Department, Grade, PF Balance
@@ -43,7 +43,7 @@ pip install -r requirements.txt
 
 ```bash
 cp .env.example .env
-# Edit .env and fill in your ANTHROPIC_API_KEY
+# Edit .env and fill in your GEMINI_API_KEY or other AI provider key
 ```
 
 ### 3. Set up Gmail API
