@@ -1,6 +1,6 @@
 # PF Automation Agent
 
-A fully automated Provident Fund (PF) request processing system that reads Gmail, extracts structured data using Claude AI, writes to a daily-rotating Excel ledger, and runs an AI validation pass — replacing the manual bookkeeper workflow entirely.
+A fully automated Provident Fund (PF) request processing system that reads Gmail, extracts structured data using AI, writes to a daily-rotating Excel ledger, and runs an AI validation pass — replacing the manual bookkeeper workflow entirely.
 
 ---
 
@@ -22,7 +22,7 @@ Gmail (unread PF emails)
  Excel Logger              ← writes to daily sheet, rotates file every 3–4 months
         │
         ▼
- Validation Agent (Claude) ← checks duplicates, limits, suspicious entries
+ Validation Agent          ← checks duplicates, limits, suspicious entries
         │
         ▼
  Excel file updated        ← status column coloured: OK / Warning / Error
@@ -117,7 +117,7 @@ Each file has one sheet per day named `YYYY-MM-DD`. Columns:
 - Duplicate employee index on same day → **Error**
 - Missing reason (if required) → **Warning**
 
-### AI-based (Claude)
+### AI-based
 - Vague or suspicious reasons
 - Amounts disproportionate to grade/balance
 - Subtle duplicates (same request, slightly different wording)
@@ -145,7 +145,7 @@ End-of-day validation at 6 PM (daemon handles this; or manually):
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `ANTHROPIC_API_KEY` | — | Your Claude API key |
+| `API_KEY` | — | Your LLM API key |
 | `GMAIL_CREDENTIALS_FILE` | `config/credentials.json` | OAuth credentials |
 | `GMAIL_TOKEN_FILE` | `config/token.json` | Saved OAuth token |
 | `GMAIL_SEARCH_QUERY` | `subject:(provident fund OR PF withdrawal) is:unread` | Gmail search filter |
@@ -171,8 +171,8 @@ pf_agent/
 │   ├── credentials.json        ← Gmail OAuth (you provide)
 │   └── token.json              ← auto-generated after first auth
 ├── agents/
-│   ├── extraction_agent.py     ← Claude extraction logic
-│   └── validation_agent.py     ← rule + Claude validation
+│   ├── extraction_agent.py     ← LLM extraction logic
+│   └── validation_agent.py     ← rule + LLM validation
 ├── utils/
 │   ├── gmail_client.py         ← Gmail API wrapper
 │   ├── doc_parser.py           ← PDF + DOCX text extraction
